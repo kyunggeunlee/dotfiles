@@ -72,12 +72,18 @@ if vim.fn.executable('ccls') == 1 then
   vim.cmd('autocmd FileType c,cpp setlocal signcolumn=yes')
 end
 
-if vim.fn.executable('pyls') == 1 then
-  lspconfig.pyls.setup{
-    on_attach = on_attach,
-  }
+if vim.fn.executable('pyright') == 1 or vim.fn.executable('pyls') then
   vim.cmd('autocmd FileType python setlocal omnifunc=v:lua.vim.lsp.omnifunc')
   vim.cmd('autocmd FileType python setlocal signcolumn=yes')
+  if vim.fn.executable('pyright') == 1 then
+    lspconfig.pyright.setup{
+      on_attach = on_attach,
+    }
+  else
+    lspconfig.pyls.setup{
+      on_attach = on_attach,
+    }
+  end
 end
 
 END
