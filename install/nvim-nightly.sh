@@ -22,4 +22,4 @@ sh -c 'curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs 
 export PATH=\$HOME/.local/bin:\$PATH
 nvim -E -s -u ~/.config/nvim/init.vim +PlugInstall +qall!
 
-echo "Neovim Install finished. Now run:\n$ echo \"export PATH=\\\$HOME/.local/bin:\\\$PATH\" >> \$HOME/.zshrc"
+echo "Neovim install finished. Now run:\n$ echo \"export PATH=\\\$HOME/.local/bin:\\\$PATH\" >> \$HOME/.zshrc"
