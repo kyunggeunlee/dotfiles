@@ -2,7 +2,7 @@
 
 # zsh
 sudo apt install -y zsh
-chsh -s `which zsh`
+chsh -s $(which zsh)
 
 # oh-my-zsh
 cd /tmp
