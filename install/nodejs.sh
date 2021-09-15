@@ -1,11 +1,18 @@
-VERSION=14.17.6
+#!/bin/bash
+set -ev
 
-cd /tmp
-curl -LO "https://nodejs.org/dist/v$VERSION/node-v$VERSION-linux-x64.tar.xz"
+NODE_VERSION=${VERSION:-14.17.6}
 
-tar -xf node-v$VERSION-linux-x64.tar.xz
+pushd /tmp
+curl -LO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz"
 
+tar -xf node-v$NODE_VERSION-linux-x64.tar.xz
+
+# Create directory
 mkdir -p $HOME/.local/src
-mv node-v$VERSION-linux-x64 $HOME/.local/src/node
 
-echo "NodeJS install finished. Now run:\n$ echo \"export PATH=\\\$HOME/.local/src/node/bin:\\\$PATH\" >> \$HOME/.zshrc"
+# Remove
+rm -rf $HOME/.local/src/node || true
+
+mv node-v$NODE_VERSION-linux-x64 $HOME/.local/src/node
+popd

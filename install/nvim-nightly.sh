@@ -1,9 +1,8 @@
 #!/bin/bash
-
 set -ev
 
 # Get nightly release
-cd /tmp
+pushd /tmp
 curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 tar xzf nvim-linux64.tar.gz
 mkdir -p ~/.local
@@ -21,5 +20,4 @@ sh -c 'curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs 
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 export PATH=\$HOME/.local/bin:\$PATH
 nvim -E -s -u ~/.config/nvim/init.vim +PlugInstall +qall!
-
-echo "Neovim install finished. Now run:\n$ echo \"export PATH=\\\$HOME/.local/bin:\\\$PATH\" >> \$HOME/.zshrc"
+popd
