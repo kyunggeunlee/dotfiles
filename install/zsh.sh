@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt update && sudo apt install -y libncurses5-dev libncursesw5-dev
+
 # zsh
 VERSION=${VERSION:-5.8}
 rm -rf $HOME/.local/bin/zsh $HOME/.local/bin/zsh-*.* $HOME/.local/lib/zsh $HOME/.local/share/zsh
