@@ -18,6 +18,5 @@ rsync -a nvim-linux64/* ~/.local/
 # Install plugins
 sh -c 'curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-export PATH=\$HOME/.local/bin:\$PATH
-nvim -E -s -u ~/.config/nvim/init.vim +PlugInstall +qall!
+$HOME/.local/bin/nvim -E -s -u ~/.config/nvim/init.vim +PlugInstall +qall!
 popd
