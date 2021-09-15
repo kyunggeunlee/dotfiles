@@ -3,9 +3,10 @@ set -ev
 
 sudo apt update && sudo apt install -y libncurses5-dev libncursesw5-dev
 
+pushd /tmp
+
 # zsh
 ZSH_VERSION=${VERSION:-5.8}
-pushd /tmp
 wget https://sourceforge.net/projects/zsh/files/zsh/$ZSH_VERSION/zsh-$ZSH_VERSION.tar.xz
 tar -xvf zsh-$ZSH_VERSION.tar.xz
 pushd zsh-$ZSH_VERSION
@@ -20,4 +21,5 @@ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | 
 
 # zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
 popd

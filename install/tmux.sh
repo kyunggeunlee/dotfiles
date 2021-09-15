@@ -1,11 +1,12 @@
 #!/bin/bash
 set -ev
 
-sudo apt update && sudo apt install -y libevent-dev
+sudo apt update && sudo apt install -y libevent-dev wget
+
+pushd /tmp
 
 # tmux
 TMUX_VERSION=${VERSION:-3.2a}
-pushd /tmp
 wget https://github.com/tmux/tmux/releases/download/$TMUX_VERSION/tmux-$TMUX_VERSION.tar.gz
 tar -xvf tmux-$TMUX_VERSION.tar.gz
 pushd tmux-$TMUX_VERSION
@@ -18,4 +19,5 @@ popd
 # tpm
 git clone --depth=1 https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 $HOME/.tmux/plugins/tpm/bin/install_plugins
+
 popd

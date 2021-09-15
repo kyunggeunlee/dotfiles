@@ -1,8 +1,9 @@
 #!/bin/bash
 set -ev
 
-# Get nightly release
 pushd /tmp
+
+# Get nightly release
 curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 tar xzf nvim-linux64.tar.gz
 mkdir -p ~/.local
@@ -19,4 +20,5 @@ rsync -a nvim-linux64/* ~/.local/
 sh -c 'curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 $HOME/.local/bin/nvim -E -s -u ~/.config/nvim/init.vim +PlugInstall +qall!
+
 popd
