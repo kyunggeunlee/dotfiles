@@ -23,14 +23,6 @@ set expandtab
 set smarttab
 let g:vimsyn_embed='l'
 
-map <F1> :vsplit<CR>:execute "tag " . expand('<cword>')<CR>
-map <F2> :NERDTreeToggle<CR>
-map <F3> :tabe<CR>
-map <F4> :vsplit<CR>
-map <F5> :split<CR>
-map <F9> :set invnumber<CR>
-map <C-N> :tabnext<CR>
-map <C-P> :tabprevious<CR>
 colorscheme gruvbox
 set bg=dark
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -41,8 +33,17 @@ set mouse=a
 set tags=./tags;,tags;
 let g:jedi#use_tabs_not_buffers = 1
 
+map <F2> :NERDTreeToggle<CR>
+map <C-N> :tabnext<CR>
+map <C-P> :tabprevious<CR>
+
 let mapleader=" "
 map <Leader>y :OSCYank<CR>
+map <Leader>e :tabe<CR>
+map <Leader>v :vsplit<CR>
+map <Leader>s :split<CR>
+map <Leader>w :w<CR>
+map <Leader>q :q<CR>
 
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
