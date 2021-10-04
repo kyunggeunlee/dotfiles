@@ -14,11 +14,11 @@ call plug#end()
 
 set hlsearch
 set number relativenumber
-set shiftwidth=2
+set shiftwidth=4
 set smartindent
 set autoindent
-set tabstop=2
-set softtabstop=2
+set tabstop=4
+set softtabstop=4
 set expandtab
 set smarttab
 let g:vimsyn_embed='l'
@@ -33,7 +33,6 @@ set mouse=a
 set tags=./tags;,tags;
 let g:jedi#use_tabs_not_buffers = 1
 
-map <F2> :NERDTreeToggle<CR>
 map <C-N> :tabnext<CR>
 map <C-P> :tabprevious<CR>
 
@@ -44,6 +43,7 @@ map <Leader>v :vsplit<CR>
 map <Leader>s :split<CR>
 map <Leader>w :w<CR>
 map <Leader>q :q<CR>
+map <Leader>t :NERDTreeToggle<CR>
 
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
@@ -73,18 +73,21 @@ if vim.fn.executable('ccls') == 1 then
   vim.cmd('autocmd FileType c,cpp setlocal signcolumn=yes')
 end
 
-if vim.fn.executable('pyright') == 1 or vim.fn.executable('pyls') then
+if vim.fn.executable('pyright') == 1 then
+  lspconfig.pyright.setup{
+    on_attach = on_attach,
+    settings = {
+      python = {
+        analysis = {
+          typeCheckingMode = "basic",
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+        }
+      }
+    }
+  }
   vim.cmd('autocmd FileType python setlocal omnifunc=v:lua.vim.lsp.omnifunc')
   vim.cmd('autocmd FileType python setlocal signcolumn=yes')
-  if vim.fn.executable('pyright') == 1 then
-    lspconfig.pyright.setup{
-      on_attach = on_attach,
-    }
-  else
-    lspconfig.pyls.setup{
-      on_attach = on_attach,
-    }
-  end
 end
 
 END
