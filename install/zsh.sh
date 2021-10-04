@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ev
 
-sudo apt update && sudo apt install -y libncurses5-dev libncursesw5-dev
+sudo apt update && sudo apt install -y libncurses5-dev libncursesw5-dev curl
 
 pushd /tmp
 
