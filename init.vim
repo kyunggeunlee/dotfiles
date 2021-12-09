@@ -48,18 +48,28 @@ map <Leader>t :NERDTreeToggle<CR>
 
 function! Gitadd()
     let l:filename = getreg("%")
-    execute printf("Git add %s", l:filename)
+    let l:cmd = printf("Git add %s", l:filename)
+    echo cmd
+    execute cmd
 endfunction
 
-function! Gitlog()
+function Gitlog(is_visual_mode)
     let l:filename = getreg("%")
-    let l:start = line("'<")
-    let l:end = line("'>")
-    execute printf("Git log -L %d,%d:%s", l:start, l:end, l:filename)
+    if a:is_visual_mode
+        let l:start = line("'<") "first line of the selected block in visual mode
+        let l:end = line("'>")   "last line of the selected block in visual mode
+    else
+        let l:start = line("w0") "first line of the current window
+        let l:end = line("w$")   "last line of the current window
+    endif
+    let l:cmd = printf("Git log -L %d,%d:%s", l:start, l:end, l:filename)
+    echo l:cmd
+    execute l:cmd
 endfunction
 
 map <Leader>ga :<C-u>call Gitadd()<CR>
-map <Leader>gl :<C-u>call Gitlog()<CR>
+nmap <Leader>gl :<C-u>call Gitlog(0)<CR>
+vmap <Leader>gl :<C-u>call Gitlog(1)<CR>
 map <Leader>gd :Git diff HEAD<CR>
 
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
