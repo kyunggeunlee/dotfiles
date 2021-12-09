@@ -18,6 +18,6 @@ rm -rf $HOME/.local/node || true
 mv node-v$NODE_VERSION-linux-x64 $HOME/.local/node
 
 # pyright
-$HOME/.local/node/bin/npm install -g pyright
+PATH=$HOME/.local/node/bin:$PATH $HOME/.local/node/bin/npm install -g pyright
 
 popd
