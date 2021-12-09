@@ -46,13 +46,6 @@ map <Leader>w :w<CR>
 map <Leader>q :q<CR>
 map <Leader>t :NERDTreeToggle<CR>
 
-function! Gitadd()
-    let l:filename = getreg("%")
-    let l:cmd = printf("Git add %s", l:filename)
-    echo cmd
-    execute cmd
-endfunction
-
 function Gitlog(is_visual_mode)
     let l:filename = getreg("%")
     if a:is_visual_mode
@@ -67,10 +60,10 @@ function Gitlog(is_visual_mode)
     execute l:cmd
 endfunction
 
-map <Leader>ga :<C-u>call Gitadd()<CR>
-nmap <Leader>gl :<C-u>call Gitlog(0)<CR>
+map <Leader>ga :Git add %<CR>
+map <Leader>gd :Git diff HEAD %<CR>
+nmap <Leader>gl :call Gitlog(0)<CR>
 vmap <Leader>gl :<C-u>call Gitlog(1)<CR>
-map <Leader>gd :Git diff HEAD<CR>
 
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
