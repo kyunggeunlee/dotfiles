@@ -10,6 +10,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ojroques/vim-oscyank'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 set hlsearch
@@ -44,6 +45,22 @@ map <Leader>s :split<CR>
 map <Leader>w :w<CR>
 map <Leader>q :q<CR>
 map <Leader>t :NERDTreeToggle<CR>
+
+function! Gitadd()
+    let l:filename = getreg("%")
+    execute printf("Git add %s", l:filename)
+endfunction
+
+function! Gitlog()
+    let l:filename = getreg("%")
+    let l:start = line("'<")
+    let l:end = line("'>")
+    execute printf("Git log -L %d,%d:%s", l:start, l:end, l:filename)
+endfunction
+
+map <Leader>ga :<C-u>call Gitadd()<CR>
+map <Leader>gl :<C-u>call Gitlog()<CR>
+map <Leader>gd :Git diff HEAD<CR>
 
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
