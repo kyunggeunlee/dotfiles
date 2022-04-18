@@ -39,7 +39,7 @@ map <C-P> :tabprevious<CR>
 
 let mapleader=" "
 map <Leader>y :OSCYank<CR>
-map <Leader>e :tabe<CR>
+map <Leader>e :tab split<CR>
 map <Leader>v :vsplit<CR>
 map <Leader>s :split<CR>
 map <Leader>w :w<CR>
@@ -85,6 +85,7 @@ end
 if vim.fn.executable('ccls') == 1 then
   lspconfig.ccls.setup{
     on_attach = on_attach,
+    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
     init_options = {
       client = { snippetSupport = false }
     }
