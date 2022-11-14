@@ -4,7 +4,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -69,8 +70,8 @@ nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
 nnoremap  K <cmd>lua vim.lsp.buf.hover()<CR>
 
-imap <Tab> <Plug>(completion_smart_tab)
-imap <S-Tab> <Plug>(completion_smart_s_tab)
+"imap <Tab> <Plug>(completion_smart_tab)
+"imap <S-Tab> <Plug>(completion_smart_s_tab)
 
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
@@ -78,37 +79,37 @@ set shortmess+=c
 
 lua << END
 local lspconfig = require'lspconfig'
-local on_attach = function(client)
-  require'completion'.on_attach(client)
-end
 
-if vim.fn.executable('ccls') == 1 then
-  lspconfig.ccls.setup{
-    on_attach = on_attach,
-    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-    init_options = {
-      client = { snippetSupport = false }
-    }
-  }
-  vim.cmd('autocmd FileType c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc')
-  vim.cmd('autocmd FileType c,cpp setlocal signcolumn=yes')
-end
+local cmp = require'cmp'
 
-if vim.fn.executable('pyright') == 1 then
-  lspconfig.pyright.setup{
-    on_attach = on_attach,
-    settings = {
-      python = {
-        analysis = {
-          typeCheckingMode = "basic",
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-        }
-      }
-    }
-  }
-  vim.cmd('autocmd FileType python setlocal omnifunc=v:lua.vim.lsp.omnifunc')
-  vim.cmd('autocmd FileType python setlocal signcolumn=yes')
-end
+cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+lspconfig['pyright'].setup {
+  capabilities = capabilities
+}
+lspconfig['ccls'].setup {
+  capabilities = capabilities
+}
 
 END
