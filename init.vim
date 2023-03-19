@@ -18,6 +18,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ojroques/vim-oscyank'
 Plug 'tpope/vim-fugitive'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 
 set hlsearch
@@ -71,6 +72,7 @@ map <Leader>ga :Git add %<CR>
 map <Leader>gd :Git diff HEAD %<CR>
 nmap <Leader>gl :call Gitlog(0)<CR>
 vmap <Leader>gl :<C-u>call Gitlog(1)<CR>
+nmap <Leader>md :MarkdownPreviewToggle<CR>
 
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
