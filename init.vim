@@ -46,7 +46,7 @@ map <C-N> :tabnext<CR>
 map <C-P> :tabprevious<CR>
 
 let mapleader=" "
-map <Leader>y :OSCYank<CR>
+map <Leader>y :OSCYankVisual<CR>
 map <Leader>e :tab split<CR>
 map <Leader>v :vsplit<CR>
 map <Leader>s :split<CR>
