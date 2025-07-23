@@ -3,9 +3,8 @@ set -ev
 
 pushd /tmp
 
-# Get nightly release
-curl -LO https://github.com/neovim/neovim/releases/download/v0.7.0/nvim-linux64.tar.gz
-tar xzf nvim-linux64.tar.gz
+curl -LO https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz
+tar xzf nvim-linux-x86_64.tar.gz
 mkdir -p ~/.local
 
 # Remove
@@ -14,7 +13,7 @@ rm -rf ~/.local/lib/nvim   || true
 rm -rf ~/.local/share/nvim || true
 
 # Install nvim
-rsync -rltoD nvim-linux64/* ~/.local/
+rsync -rltoD nvim-linux-x86_64/* ~/.local/
 
 # Install plugins
 sh -c 'curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \

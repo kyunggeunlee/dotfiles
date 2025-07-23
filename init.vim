@@ -53,6 +53,8 @@ map <Leader>s :split<CR>
 map <Leader>w :w<CR>
 map <Leader>q :q<CR>
 map <Leader>t :NERDTreeToggle<CR>
+map <Leader>l :tabm +1<CR>
+map <Leader>h :tabm -1<CR>
 
 function Gitlog(is_visual_mode)
     let l:filename = getreg("%")
