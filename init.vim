@@ -19,6 +19,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ojroques/vim-oscyank'
 Plug 'tpope/vim-fugitive'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
+Plug 'github/copilot.vim'
 call plug#end()
 
 set hlsearch
@@ -79,6 +81,13 @@ nmap <Leader>md :MarkdownPreviewToggle<CR>
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>Telescope lsp_references<CR>
 nnoremap  K <cmd>lua vim.lsp.buf.hover()<CR>
+
+map <Leader>ct :CopilotChatToggle<CR>
+map <Leader>ce :CopilotChatExplain<CR>
+map <Leader>cr :CopilotChatReview<CR>
+map <Leader>cf :CopilotChatFix<CR>
+map <Leader>co :CopilotChatOptimize<CR>
+map <Leader>cd :CopilotChatDocs<CR>
 
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
@@ -147,4 +156,47 @@ lspconfig['ccls'].setup {
   capabilities = capabilities
 }
 
+require('CopilotChat').setup({
+  model = 'gpt-4.1',           -- AI model to use
+  temperature = 0.1,           -- Lower = focused, higher = creative
+  window = {
+    layout = 'vertical',       -- 'vertical', 'horizontal', 'float'
+    width = 0.5,              -- 50% of screen width
+  },
+  auto_insert_mode = true,     -- Enter insert mode when opening
+  window = {
+    layout = 'float',
+    width = 80, -- Fixed width in columns
+    height = 20, -- Fixed height in rows
+    border = 'rounded', -- 'single', 'double', 'rounded', 'solid'
+    title = '🤖 AI Assistant',
+    zindex = 100, -- Ensure window stays on top
+  },
+
+  headers = {
+    user = '👤 You',
+    assistant = '🤖 Copilot',
+    tool = '🔧 Tool',
+  },
+
+  separator = '━━',
+  auto_fold = true, -- Automatically folds non-assistant messages
+  prompts = {
+    MyCustomPrompt = {
+      prompt = 'Explain how it works.',
+      system_prompt = 'You are very good at explaining stuff',
+      mapping = '<leader>ccmc',
+      description = 'My custom prompt description',
+    },
+    Yarrr = {
+      system_prompt = 'You are fascinated by pirates, so please respond in pirate speak.',
+    },
+    NiceInstructions = {
+      system_prompt = 'You are a nice coding tutor, so please respond in a friendly and helpful manner.',
+    }
+  }
+})
+
+vim.g.copilot_no_tab_map = true
+vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 END
