@@ -3,8 +3,7 @@ set -ev
 
 pushd /tmp
 
-# Get nightly release
-curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-arm64.tar.gz
+curl -LO https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-arm64.tar.gz
 tar xzf nvim-linux-arm64.tar.gz
 mkdir -p ~/.local
 

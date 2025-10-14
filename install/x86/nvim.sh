@@ -3,7 +3,7 @@ set -ev
 
 pushd /tmp
 
-curl -LO https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz
+curl -LO https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.tar.gz
 tar xzf nvim-linux-x86_64.tar.gz
 mkdir -p ~/.local
 
