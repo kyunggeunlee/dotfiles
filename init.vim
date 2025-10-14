@@ -96,7 +96,6 @@ imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand-or-jump)'        
 smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand-or-jump)'         : '<C-j>'
 
 lua << END
-local lspconfig = require'lspconfig'
 local cmp = require'cmp'
 
 cmp.setup({
@@ -149,12 +148,14 @@ cmp.setup.cmdline(':', {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig['pyright'].setup {
+vim.lsp.config('pyright', {
   capabilities = capabilities
-}
-lspconfig['ccls'].setup {
+})
+vim.lsp.enable('pyright')
+vim.lsp.config('ccls', {
   capabilities = capabilities
-}
+})
+vim.lsp.enable('ccls')
 
 require('CopilotChat').setup({
   model = 'gpt-4.1',           -- AI model to use
